@@ -6,56 +6,64 @@
 	  -moz-box-sizing: border-box;
 	font-family: Arial;
 }
-
+body{
+	background: url(images/Bridge-Wall-City-Night.jpg) no-repeat;
+	background-size: cover;
+}
 #container{
-	max-width: 1100px;
+	position: relative;
 	margin: auto;
 }
 
-/*Header style*/
-#header{
-	position: relative;
-	width: 100%;
-	height: 50px;
-	border-bottom: 1px solid #bababa;
-}
-
-#header #soud{
+/*Siderbar-right*/
+#sidebar-right{
 	position: absolute;
-	bottom: 3px;
+	top: 0px;
 	right: 0px;
+	width: 13%;
+	height: auto;
+}
+ 
+/*Sound*/
+#sound{
+	position: relative;
+	width: 150px;
+	height: auto;
+	top: 150px;
+}
+#sound-icon{
+	position: absolute;
+	display: block;
+	top: 84px;
+	right: 10px;
+	width: 55px;
+}
+.volume-icon{
+	position: relative;
+	display: block;
+	width: 45px;
+	left: 20px;
+	margin-bottom: 10px;
 }
 
-#header #soud span{
-	display: inline-block;
-	border: 1px solid black;
-	border-radius: 5px;
-	font-size: 25px;
-	padding: 3px 10px;
-	margin-left: 10px;
-	cursor: pointer;
-	background: #ededed;
+/*content*/
+#content{
+	width: 86%;
+	height: auto;
 }
-
-#header #soud span:hover{
-	border: 2px solid red;
-}
-
-/*content-set-time style*/
-#content-set-time{
+#content-top{
 	width: 100%;
 	height: 200px;
-	padding-top:100px;
+	padding-top: 125px;
 	text-align: center;
 }
-#content-set-time input{
+#content-top input{
 	width: 500px;
 	height: 40px;
 	font-size: 25px;
 	text-align: right;
-	border: 1px solid #7f7f7f;
 }
-#content-set-time span{
+#content-top #start{
 	display: inline-block;
 	border-radius: 5px;
 	font-size: 25px;
@@ -63,21 +71,22 @@
 	margin-left: 5px;
 	background: #514fff;
 	cursor: pointer;
+	border: 1px solid #514fff;
 	color: white;
 }
-#content-set-time span:hover{
-	box-shadow: 0px 0px 5px black;
+#content-top #start:hover{
+	border: 1px solid white;
 }
 
 /*content show Style*/
-#content-show{
-	width: 100%;
+#content-bottom{
+	max-width: 1100px;
+	margin: auto;
 	height: auto;
 	overflow: hidden;
-	padding-top: 30px;
-	text-align: center;
+	padding: 30px 0px 0px 25px;
 }
-#content-show .show{
+#content-bottom .show-item{
 	width: 150px;
 	height: 100px;
 	border: 1px solid black;
@@ -88,27 +97,18 @@
 	font-size: 30px;
 	opacity: 0.5;
 	background: #efefef;
+	text-align: center;
 }
-#content-show .show span.minute{
+#content-bottom .show-item span.minute{
 	font-size: 50px;
 	font-weight: bold;
 }
-#content-show .show i{
+#content-bottom .show-item i{
 	cursor: pointer;
 	color: #777777;
 	margin-right: 5px;  
 }
-#content-show .show i:hover{
+#content-bottom .show-item i:hover{
 	color: black;
-	text-shadow: 0px 0px 5px black;
 }
  
-/*footer Style*/
-#footer{
-	width: 100%;
-	height: 35px;
-	padding-top: 6px;
-	margin-top: 300px;
-	border-top: 1px solid #b2b2b2;
-	font-style: italic;
-}

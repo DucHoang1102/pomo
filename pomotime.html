@@ -15,37 +15,38 @@
 </head>
 <body>
 	<div id="container">
-		<input type="button" value="THU XEM" onclick="startItemTime()">
-		<div id="header">
-			<div id="soud">
-				<span>2 s</span>
-				<span>4 s</span>
-				<span>6 s</span>
-			</div>
-		</div>
-		
-		<div id="content-set-time">
-			<input type="text" id="importtime" placeholder="30+5+30+5+30">
-			<span onclick="setItem()">Start</span>
-		</div>
 
-		<div id="content-show">
-			<!-- Parent item - Mau item 
-			<div class="show">
-				<span class="minute">30</span><span>:</span><span class="sec">250</span><br>
+		<div id="sidebar-right">
+			<div id="sound">
+				<img id="sound-icon" src="images/sound-icon.png" alt="sound-icon" title="Sound settings" width="90px">
+
+				<img class="volume-icon" src="images/sound-volume.png" alt="volume-icon" title="Sound volume" width="90px">
+				<img class="volume-icon" src="images/sound-volume.png" alt="volume-icon" title="Sound volume" width="90px">
+				<img class="volume-icon" src="images/sound-volume.png" alt="volume-icon" title="Sound volume" width="90px">
+				<img class="volume-icon mute-icon" src="images/sound-mute.png" alt="sound-icon" title="Sound mute" width="90px">
+			</div>
+		</div><!-- sidebar-right -->
+
+		<div id="content">
+			<div id="content-top">
+				<input type="text" id="importtime" placeholder="30+5+30+5+30">
+				<span id="start">Start</span>
+			</div><!-- content-top -->
+
+			<div id="content-bottom">
+				<!-- Parent item - Mau item 
+				<div class="show-item">
+				<span class="minute">30</span><span>:</span><span class="sec">25</span><br>
 				<i class="material-icons">clear</i>
 
 				<i class="material-icons">play_arrow</i>
 				<i class="material-icons">pause</i>
 
 				<i class="material-icons">replay</i>
-			</div>-->
-		 
-		</div>
+				</div>-->
+			</div><!-- content-bottom -->
+		</div><!-- content -->
 
-		<div id="footer">
-			<span>@byDucHoang</span>
-		</div>
-	</div>
+	</div><!-- container -->
 </body>
 </html>
