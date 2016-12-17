@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	var sec, minute, hour;
+	// Khai báo 3 biến global
+	// hour măc định luôn bằng 0. thực chất ko liên quan.
+	var sec, minute, hour=0;  
 
 	function time(){
 	//Kiem tra 3 tham so hour, minute, sec
@@ -23,26 +25,101 @@ $(document).ready(function(){
 	}//Time()
 
 	var start = {
+		// Object Start - Tổng hợp toàn bộ quá trình sử lý Item và thời gian
 		splitTime: function(){
 			//Tách thời gian trong khung input
 			var list_mins = [];
 			var $list_mins = $('#importtime').val().split('+');// input:30+5+30+5 =>> output:[30,5,30,5]
 			for (min of $list_mins){
-				if(isNaN(min)) continue;// input: 'hoang'+5+30+5 =>> output:[5,30,5]
-				if(Number(min) == 0) continue; //input: 0+5+30+5 =>> output:[5,30,5]
+				if(isNaN(min) || Number(min) == 0) continue;// input: 'hoang'+5+30+0+5+0 =>> output:[5,30,5]
 				if(min > 99) min = 99;//input: 9999+1250+5+30+5 =>> output:[99,99,5,30,5]
 				min = parseInt(min);// Tắt dấu chấm động input:30.5+5.4+30+5 =>> output:[30,5,30,5]
-				alert(min)
+				list_mins.push(min);
 			}
-		}//splitTime
+			return list_mins;
+		},//splitTime
 
-		setItem: function(){
-			
-		}//setItem
+		setItem: function(setMinute=0, setSec=0, setIdItem){
+			 var $item = $(`\
+					<div class="show-item" id="${setIdItem}">\
+						<span class="minute">${setMinute}</span><span>:</span><span class="sec">${setSec}</span><br>\
+						<i class="material-icons">clear</i>\
+						<i class="material-icons">play_arrow</i>\
+						<i class="material-icons" style="display:none;">pause</i>\
+						<i class="material-icons">replay</i>\
+					</div>\
+			 	`);
+			 $item.appendTo('#content-bottom')
+			 .slideUp()
+			 .slideDown(300)
+
+		},//setItem
+
+		startTime: function(flagSetItem){
+
+			if(flagSetItem == true){
+				// Lấy danh sách phút ĐÃ LỌC để thiết lập Item
+				// Thiết lập id riêng cho mỗi Item => idItem
+
+				// Tại sao lại thiết lập ID riêng:..?
+				// vì chúng ta sẽ thao tác các chức năng trên mỗi Item 
+				// khác nhau. Vì vậy cần Id để định vị Item cần xử lý
+
+				// flagSetItem == true => Đồng ý lấy giá trị trong ô
+				// input để tạo Item. 
+				var list_mins = start.splitTime();
+				for (var setMinute of list_mins){
+					var idItem = "item-" + Math.random();// Thiết lập id random
+					start.setItem(setMinute, 0/*sec*/, idItem);
+				}
+			}
+
+			//Chạy Item đầu tiên
+			var $itemFirst = $('.show-item:eq(0)');
+			if($itemFirst[0]){
+				// Kiểm tra Item đầu tiên có hay không?
+				// Nếu có thì CHẠY LUÔN ITEM ĐẦU TIÊN.
+				// Phải có [0] bở vì if kiểm tra thành phần Dom not jquery.
+				// ParseInt để chuyển String sang Number.
+				// minute và sec là 2 biến toàn cục. Thiết lập 
+				// giá trị cho minute và sec.
+				minute = parseInt($('.show-item:eq(0) .minute').text());
+				sec = parseInt($('.show-item:eq(0) .sec').text());
+				start.viewItem();
+			}
+		},//startTime
+
+		viewItem: function(){
+			//Chạy thời gian đếm lùi, hiển thị nó(Thời gian trong Item)
+			//.show-item:eq(0) => Item đầu tiên sẽ được chạy
+			$('.show-item:eq(0) .minute').text(minute);
+			$('.show-item:eq(0) .sec').text(sec);
+			time();
+			var playTimeItem = setTimeout(start.viewItem, 1000);
+
+			// Chạy hết thời gian của 1 Item
+			if((sec == 0) && (minute == 0)){
+				// Dừng setTimeout trước khi xóa Item
+				// nếu không sẽ bị cộng dồn setTimeout.
+				clearTimeout(playTimeItem);
+
+				// Sau đó xóa Item
+				$('.show-item:eq(0)').hide(1000).remove(); 
+
+				// Bắt đầu một Item tiếp theo (Item bên cạnh)
+				// flagSetItem=false => KHÔNG lấy giá trị trong ô input để
+				// tạo thêm Item nữa.
+				start.startTime(flagSetItem=false);
+			}
+		},//viewItem
+
 	}//start - object
-	
+
 	$('#start').click(function(){
-		start.splitTime()
+		// CLICK NÚT START ĐỂ BẮT ĐẦU!!!!
+		// flagSetItem=true => Đồng ý lấy giá trị trong ô Input
+		// tạo Item
+		start.startTime(flagSetItem=true);
 	})
 });
 
